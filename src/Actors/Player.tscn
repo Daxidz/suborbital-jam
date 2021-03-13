@@ -28,7 +28,6 @@ _fanage_restant = 1000.0
 current = true
 process_mode = 0
 limit_left = 0
-limit_bottom = 1080
 limit_smoothed = true
 smoothing_enabled = true
 drag_margin_left = 0.0
