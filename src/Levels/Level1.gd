@@ -10,6 +10,7 @@ extends Node2D
 func _ready():
 	$Player.position = $Position2D.position
 
+
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		$Player.position = $Position2D.position

@@ -1,15 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Actors/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Levels/tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://src/Levels/Level1.gd" type="Script" id=3]
 [ext_resource path="res://src/Levels/InvisWalls.gd" type="Script" id=4]
+[ext_resource path="res://src/Levels/TileMapLogo.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/Levels/EnemyTilemap.tscn" type="PackedScene" id=6]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 495.615, -78.1151 )
+collision_mask = 20
 speed = Vector2( 2000, 1500 )
 gravity = 4000.0
 
@@ -22,46 +25,12 @@ tile_data = PoolIntArray( -589829, 0, 0, -589828, 0, 0, -589827, 0, 0, -589826, 
 modulate = Color( 0, 0.945098, 0.101961, 1 )
 script = ExtResource( 4 )
 
-[node name="TileMap" type="TileMap" parent="InvisWalls"]
-tile_set = ExtResource( 2 )
-format = 1
-
-[node name="TileMap2" type="TileMap" parent="InvisWalls"]
-modulate = Color( 0.784314, 0.784314, 0.784314, 1 )
-tile_set = ExtResource( 2 )
-collision_layer = 0
-collision_mask = 0
-format = 1
-
-[node name="TileMap3" type="TileMap" parent="InvisWalls"]
-format = 1
-
-[node name="TileMap4" type="TileMap" parent="InvisWalls"]
-format = 1
-
-[node name="TileMap5" type="TileMap" parent="InvisWalls"]
-format = 1
-
-[node name="TileMap6" type="TileMap" parent="InvisWalls"]
-format = 1
-
-[node name="TileMap7" type="TileMap" parent="InvisWalls"]
-format = 1
-
-[node name="TileMap8" type="TileMap" parent="InvisWalls"]
-format = 1
-
-[node name="TileMap9" type="TileMap" parent="InvisWalls"]
-format = 1
-
-[node name="TileMap10" type="TileMap" parent="InvisWalls"]
-format = 1
-
-[node name="TileMap11" type="TileMap" parent="InvisWalls"]
-format = 1
-
-[node name="TileMap12" type="TileMap" parent="InvisWalls"]
-format = 1
+[node name="TileMapInvis" parent="InvisWalls" instance=ExtResource( 5 )]
+tile_data = PoolIntArray( -458745, 0, 0, -458744, 0, 0, -458743, 0, 0, -458742, 0, 0, -458741, 0, 0, -458740, 0, 0, -458739, 0, 0, -458738, 0, 0, -393206, 0, 0, -393205, 0, 0, -393204, 0, 0, -393203, 0, 0, -393202, 0, 0, -393201, 0, 0, -327671, 0, 0, -327670, 0, 0, -327669, 0, 0, -327668, 0, 0, -327667, 0, 0, -327666, 0, 0, -327665, 0, 0, -262131, 0, 0, -262130, 0, 0 )
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 600, -100 )
+
+[node name="TileMap2" parent="." instance=ExtResource( 6 )]
+collision_mask = 16
+tile_data = PoolIntArray( -65524, 0, 0, -65523, 0, 0, -65522, 0, 0, -65521, 0, 0, -65520, 0, 0, -65519, 0, 0, 20, 1, 0, 21, 1, 0, 22, 1, 0, 23, 1, 0, 24, 1, 0 )

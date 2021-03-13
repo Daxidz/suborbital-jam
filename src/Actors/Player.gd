@@ -10,22 +10,35 @@ var _pollenizing: bool = false
 var coyote_time: Timer
 var is_jumping: bool = false
 
+
+const PollenCircle = preload("res://src/Actors/PollenCircle.tscn")
+
+func pollenize():
+	if _pollenizing:
+		return
+		
+	_pollenizing = true
+	set_fanage(_fanage_restant - pollen_cost)
+	var pc = PollenCircle.instance()
+	pc.connect("polenize_done", self, "_onPollenizeDone")
+	pc.position = self.global_position
+	get_parent().add_child(pc)
+	pc.pollenize()
+	
+
 func _ready():
 	coyote_time = Timer.new()
 	coyote_time.one_shot = true
 	coyote_time.wait_time = coyote_time_time
 	add_child(coyote_time)
-	$PollenCircle.connect("polenize_done", self, "_onPollenizeDone")
 
 func _input(event):
 	if event.is_action_pressed("pollenize"):
-		if !_pollenizing:
-			_pollenizing = true
-			set_fanage(_fanage_restant - pollen_cost)
-			$PollenCircle.pollenize()
+			pollenize()
 
 func _on_StompDetector_area_entered(area: Area2D) -> void:
 	_velocity = calculate_stomp_velocity(_velocity, stomp_impulse)
+
 
 
 func _on_EnemyDetector_body_entered(body: PhysicsBody2D) -> void:
@@ -51,7 +64,6 @@ func _physics_process(delta: float) -> void:
 	)
 	
 	if not is_on_floor()  and was_on_floor and not is_jumping:
-		print("COYOTEEEE")
 		coyote_time.start()
 		_velocity.y = 0
 		
@@ -64,8 +76,7 @@ func get_direction() -> Vector2:
 		-Input.get_action_strength("jump") if (is_on_floor() or not coyote_time.is_stopped()) and Input.is_action_just_pressed("jump") else 0.0
 	)
 	
-func _process(delta):
-	pass
+
 
 func calculate_move_velocity(
 		linear_velocity: Vector2,
@@ -90,8 +101,7 @@ func calculate_stomp_velocity(linear_velocity: Vector2, stomp_impulse: float) ->
 
 
 func die() -> void:
-#	PlayerData.deaths += 1
-	queue_free()
+	modulate = Color.red
 	
 func set_fanage(new_fanage: float):
 	
@@ -101,6 +111,7 @@ func set_fanage(new_fanage: float):
 
 	if _fanage_restant <= 0:
 		$Label.text = "YOU DIED"
+		die()
 	else:
 		$Label.text = str(int(_fanage_restant))
 	pass
