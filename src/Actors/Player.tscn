@@ -4,7 +4,7 @@
 [ext_resource path="res://icon.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 28, 60 )
+extents = Vector2( 8.03519, 60 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 32, 34 )
