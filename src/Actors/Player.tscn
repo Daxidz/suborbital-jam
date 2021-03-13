@@ -1,13 +1,32 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/Actors/Player.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://img/player/IMG_0034.PNG" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 28, 60 )
+extents = Vector2( 13.2847, 59.6961 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 32, 34 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "fall"
+
+[sub_resource type="Animation" id=4]
+resource_name = "idle"
+
+[sub_resource type="Animation" id=5]
+resource_name = "jump"
+
+[sub_resource type="Animation" id=6]
+resource_name = "spawn"
+
+[sub_resource type="Animation" id=7]
+resource_name = "walk"
+
+[sub_resource type="AnimationNodeStateMachine" id=8]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=9]
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 4
@@ -18,7 +37,9 @@ stomp_impulse = 1600.0
 coyote_time_time = 0.2
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( -0.422211, -163.312 )
 current = true
+zoom = Vector2( 0.8, 0.8 )
 process_mode = 0
 limit_left = 0
 limit_smoothed = true
@@ -29,13 +50,16 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 1.26132, -39.1017 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, -48.3333 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -50 )
+position = Vector2( 0.74913, -59.9272 )
 shape = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="EnemyDetector" type="Area2D" parent="."]
 collision_layer = 0
@@ -43,7 +67,7 @@ collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
 modulate = Color( 0.337255, 0.223529, 1, 1 )
-position = Vector2( 7.62939e-06, -49.8729 )
+position = Vector2( 4.81603, -43.4749 )
 shape = SubResource( 2 )
 
 [node name="Label" type="Label" parent="."]
@@ -54,4 +78,17 @@ margin_bottom = -113.245
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/fall = SubResource( 3 )
+anims/idle = SubResource( 4 )
+anims/jump = SubResource( 5 )
+anims/spawn = SubResource( 6 )
+anims/walk = SubResource( 7 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 8 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 9 )
 [connection signal="body_entered" from="EnemyDetector" to="." method="_on_EnemyDetector_body_entered"]
