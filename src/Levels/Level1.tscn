@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Actors/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Levels/tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://src/Levels/Level1.gd" type="Script" id=3]
 [ext_resource path="res://src/Levels/InvisWalls.gd" type="Script" id=4]
 [ext_resource path="res://src/Levels/TileMapInvisibleScene.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/Levels/EnemyTilemap.tscn" type="PackedScene" id=6]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 3 )
@@ -27,3 +28,6 @@ script = ExtResource( 4 )
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 600, -100 )
+
+[node name="EnemieTileMap" parent="." instance=ExtResource( 6 )]
+tile_data = PoolIntArray( -65529, 2, 0, -65528, 2, 0, -65527, 2, 0, -65526, 2, 0, -65525, 2, 0, -65524, 2, 0, -65523, 2, 0, -65522, 2, 0, -65521, 1, 0, -65520, 1, 0, -65519, 1, 0 )

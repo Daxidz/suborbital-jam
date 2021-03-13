@@ -2,7 +2,7 @@ extends Actor
 
 
 export var stomp_impulse: = 600.0
-export var _fanage_restant: float = 10000
+export var fanage_base: float = 10000
 export var coyote_time_time = 0.5;
 
 var _pollenizing: bool = false
@@ -10,8 +10,17 @@ var _pollenizing: bool = false
 var coyote_time: Timer
 var is_jumping: bool = false
 
+var _fanage_restant: float = fanage_base
+var _dead: bool = false
+
 
 const PollenCircle = preload("res://src/Actors/PollenCircle.tscn")
+
+
+func respawn():
+	_dead = false
+	_fanage_restant = fanage_base
+	modulate = Color(1,1,1,1)
 
 func pollenize():
 	if _pollenizing:
@@ -101,6 +110,7 @@ func calculate_stomp_velocity(linear_velocity: Vector2, stomp_impulse: float) ->
 
 
 func die() -> void:
+	_dead = true
 	modulate = Color.red
 	
 func set_fanage(new_fanage: float):
@@ -109,7 +119,7 @@ func set_fanage(new_fanage: float):
 	if _fanage_restant < 0.0:
 		_fanage_restant = 0.0
 
-	if _fanage_restant <= 0:
+	if _dead or _fanage_restant <= 0:
 		$Label.text = "YOU DIED"
 		die()
 	else:
