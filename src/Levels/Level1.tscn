@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/Actors/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Levels/tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://src/Levels/Level1.gd" type="Script" id=3]
 [ext_resource path="res://src/Levels/InvisWalls.gd" type="Script" id=4]
 [ext_resource path="res://src/Levels/TileMapLogo.tscn" type="PackedScene" id=5]
+[ext_resource path="res://icon.png" type="Texture" id=7]
+
+[sub_resource type="TileSet" id=1]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 3 )
@@ -23,14 +26,26 @@ tile_data = PoolIntArray( 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 
 modulate = Color( 0, 0.945098, 0.101961, 1 )
 script = ExtResource( 4 )
 
-[node name="TileMap" parent="InvisWalls" instance=ExtResource( 5 )]
+[node name="TileMapInvis" parent="InvisWalls" instance=ExtResource( 5 )]
+tile_data = PoolIntArray( -196592, 0, 0, -196591, 0, 0, -131056, 0, 0, -131055, 0, 0, -131054, 0, 0, -65521, 0, 0, -65520, 0, 0, -65519, 0, 0, -65518, 0, 0, -65513, 0, 0, -65512, 0, 0, -65511, 0, 0, -65510, 0, 0, -65509, 0, 0, -65508, 0, 0, -65507, 0, 0, 29, 0, 0, 30, 0, 0, 31, 0, 0, 65558, 0, 0, 65559, 0, 0, 65560, 0, 0, 65561, 0, 0, 65562, 0, 0, 65563, 0, 0, 65564, 0, 0, 65565, 0, 0, 65566, 0, 0, 65567, 0, 0 )
 
-[node name="TileMap2" type="TileMap" parent="InvisWalls"]
-tile_set = ExtResource( 2 )
-collision_layer = 0
-collision_mask = 0
+[node name="TileMapInvis2" parent="InvisWalls" instance=ExtResource( 5 )]
+tile_data = PoolIntArray( -393209, 0, 0, -393208, 0, 0, -393207, 0, 0, -393206, 0, 0, -393205, 0, 0, -393204, 0, 0, -393203, 0, 0, -327673, 0, 0, -327672, 0, 0, -327671, 0, 0, -327670, 0, 0, -327669, 0, 0, -327668, 0, 0 )
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="EnemiesTS" type="TileMap" parent="Enemies"]
+tile_set = SubResource( 1 )
 format = 1
-tile_data = PoolIntArray( 65571, 536870912, 0, 65572, 536870912, 0, 65573, 536870912, 0, 65574, 536870912, 0, 131105, 536870912, 0, 131106, 536870912, 0, 131107, 536870912, 0, 131108, 536870912, 0, 131109, 536870912, 0, 131110, 536870912, 0, 131111, 536870912, 0, 131112, 536870912, 0 )
 
 [node name="Position2D" type="Position2D" parent="."]
-position = Vector2( 584.824, -177.99 )
+position = Vector2( 2098.03, 158.593 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground"]
+modulate = Color( 0.945098, 0, 1, 1 )
+position = Vector2( 1173.8, 169.706 )
+scale = Vector2( 47.1387, 23.4506 )
+texture = ExtResource( 7 )

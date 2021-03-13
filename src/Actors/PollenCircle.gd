@@ -21,4 +21,4 @@ func _on_WallDetectArea_area_entered(area):
 
 func _on_WallDetectArea_body_entered(body):
 	print(body)
-	body.visible = true
+	body.discover()

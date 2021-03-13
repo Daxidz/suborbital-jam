@@ -11,7 +11,7 @@ func _ready():
 	for tm in get_children():
 		tm.collision_layer = 9
 		tm.collision_mask = 9
-		tm.visible = false
+		tm.modulate.a = 0.0
 	pass # Replace with function body.
 
 
