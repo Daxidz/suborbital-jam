@@ -3,6 +3,19 @@ extends Actor
 
 export var stomp_impulse: = 600.0
 
+export var _fanage_restant: float = 10000
+
+var _pollenizing: bool = false
+
+func _ready():
+	$PollenCircle.connect("polenize_done", self, "_onPollenizeDone")
+
+func _input(event):
+	if event.is_action_pressed("pollenize"):
+		if !_pollenizing:
+			_pollenizing = true
+			set_fanage(_fanage_restant - pollen_cost)
+			$PollenCircle.pollenize()
 
 func _on_StompDetector_area_entered(area: Area2D) -> void:
 	_velocity = calculate_stomp_velocity(_velocity, stomp_impulse)
@@ -11,8 +24,8 @@ func _on_StompDetector_area_entered(area: Area2D) -> void:
 func _on_EnemyDetector_body_entered(body: PhysicsBody2D) -> void:
 	die()
 
-
 func _physics_process(delta: float) -> void:
+	
 	var is_jump_interrupted: = Input.is_action_just_released("jump") and _velocity.y < 0.0
 	var direction: = get_direction()
 	_velocity = calculate_move_velocity(_velocity, direction, speed, is_jump_interrupted)
@@ -20,6 +33,9 @@ func _physics_process(delta: float) -> void:
 	_velocity = move_and_slide_with_snap(
 		_velocity, snap, FLOOR_NORMAL, true
 	)
+	
+#	if !_pollenizing:
+	set_fanage(_fanage_restant - delta * _velocity.length())
 
 
 func get_direction() -> Vector2:
@@ -27,7 +43,9 @@ func get_direction() -> Vector2:
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 		-Input.get_action_strength("jump") if is_on_floor() and Input.is_action_just_pressed("jump") else 0.0
 	)
-
+	
+func _process(delta):
+	pass
 
 func calculate_move_velocity(
 		linear_velocity: Vector2,
@@ -52,3 +70,22 @@ func calculate_stomp_velocity(linear_velocity: Vector2, stomp_impulse: float) ->
 func die() -> void:
 #	PlayerData.deaths += 1
 	queue_free()
+	
+func set_fanage(new_fanage: float):
+	
+	_fanage_restant = new_fanage
+	if _fanage_restant < 0.0:
+		_fanage_restant = 0.0
+	
+	
+	if _fanage_restant <= 0:
+		$Label.text = "YOU DIED"
+	else:
+		$Label.text = str(int(_fanage_restant))
+		
+	pass
+	
+export var pollen_cost: int = 100
+
+func _onPollenizeDone():
+	_pollenizing = false
