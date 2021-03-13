@@ -4,10 +4,10 @@
 [ext_resource path="res://icon.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 22.6102, 26.4865 )
+extents = Vector2( 28, 60 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 45.6478, 41.7715 )
+extents = Vector2( 32, 34 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 4
@@ -34,7 +34,7 @@ texture = ExtResource( 2 )
 offset = Vector2( 0, -48.3333 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.749153, -43.3746 )
+position = Vector2( 0, -50 )
 shape = SubResource( 1 )
 
 [node name="EnemyDetector" type="Area2D" parent="."]
