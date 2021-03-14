@@ -2,6 +2,7 @@ extends Actor
 
 signal fanage_changed(cur_fanage, base_fanage)
 
+var state_machine
 
 export var stomp_impulse: = 600.0
 export var fanage_base: float = 10000
@@ -42,8 +43,9 @@ func _ready():
 	coyote_time.one_shot = true
 	coyote_time.wait_time = coyote_time_time
 	add_child(coyote_time)
-	
+	state_machine = $AnimationTree.get("parameters/playback")
 	connect("fanage_changed", get_node("/root/Main"), "_onPlayerFanageChange")
+	state_machine.start("idle")
 
 func _input(event):
 	if event.is_action_pressed("pollenize"):
@@ -84,6 +86,22 @@ func _physics_process(delta: float) -> void:
 		set_fanage(_fanage_restant - delta * _velocity.length())
 
 
+func _process(delta):
+	if (_velocity.length() == 0.0):
+		state_machine.travel("idle")
+	elif not is_jumping:
+		state_machine.travel("walk")
+		if _velocity.x > 0:
+			$Sprite.flip_h = false
+		elif _velocity.x < 0:
+			$Sprite.flip_h = true
+	else:
+		if _velocity.y < 0.0:
+			state_machine.travel("fall")
+		else:
+			state_machine.travel("jump")
+			
+
 func get_direction() -> Vector2:
 	return Vector2(
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
@@ -101,7 +119,9 @@ func calculate_move_velocity(
 	var velocity: = linear_velocity
 	
 	velocity.x = speed.x * direction.x
-	
+#	if is_jumping:
+#		velocity.x /= 1.5
+			
 	if direction.y != 0.0:
 		velocity.y = speed.y * direction.y
 	if is_jump_interrupted:
@@ -117,6 +137,7 @@ func calculate_stomp_velocity(linear_velocity: Vector2, stomp_impulse: float) ->
 func die() -> void:
 	_dead = true
 	modulate = Color.red
+	state_machine.travel("die")
 	
 func set_fanage(new_fanage: float):
 	

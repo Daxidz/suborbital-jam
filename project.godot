@@ -24,6 +24,10 @@ config/name="subOrbitalJam"
 run/main_scene="res://src/Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+SceneChanger="*res://src/titre/SceneChanger.gd"
+
 [display]
 
 window/size/width=1920

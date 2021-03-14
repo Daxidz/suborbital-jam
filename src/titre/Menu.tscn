@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/titre/Menu.gd" type="Script" id=1]
+[ext_resource path="res://test_tiles/icon2.png" type="Texture" id=2]
+
+[node name="Menu" type="Control"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+first_room = "res://src/Levels/Level1.tscn"
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 968.664, 549.973 )
+scale = Vector2( 31.2708, 18.1867 )
+texture = ExtResource( 2 )
+
+[node name="Buttons" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="START" type="TextureButton" parent="Buttons"]
+margin_left = 362.713
+margin_top = 533.209
+margin_right = 426.713
+margin_bottom = 597.209
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 2 )
+texture_hover = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CREDIT" type="TextureButton" parent="Buttons"]
+margin_left = 920.831
+margin_top = 554.347
+margin_right = 984.831
+margin_bottom = 618.347
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 2 )
+texture_hover = ExtResource( 2 )
+
+[node name="QUIT" type="TextureButton" parent="Buttons"]
+margin_left = 1460.15
+margin_top = 549.698
+margin_right = 1524.15
+margin_bottom = 613.698
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 2 )
+texture_hover = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Buttons/START" to="." method="_on_START_pressed"]
+[connection signal="pressed" from="Buttons/CREDIT" to="." method="_on_CREDIT_pressed"]
+[connection signal="pressed" from="Buttons/QUIT" to="." method="_on_QUIT_pressed"]

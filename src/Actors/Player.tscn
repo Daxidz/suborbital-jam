@@ -1,7 +1,7 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://src/Actors/Player.gd" type="Script" id=1]
-[ext_resource path="res://img/player/IMG_0034.PNG" type="Texture" id=2]
+[ext_resource path="res://img/player/player.png" type="Texture" id=2]
 [ext_resource path="res://img/misc/bulbe.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -9,6 +9,9 @@ extents = Vector2( 13.2847, 59.6961 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 32, 34 )
+
+[sub_resource type="Animation" id=22]
+resource_name = "die"
 
 [sub_resource type="Animation" id=3]
 resource_name = "fall"
@@ -24,10 +27,74 @@ resource_name = "spawn"
 
 [sub_resource type="Animation" id=7]
 resource_name = "walk"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
 
-[sub_resource type="AnimationNodeStateMachine" id=8]
+[sub_resource type="AnimationNodeAnimation" id=23]
+animation = "die"
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=9]
+[sub_resource type="AnimationNodeAnimation" id=8]
+animation = "fall"
+
+[sub_resource type="AnimationNodeAnimation" id=9]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=10]
+animation = "jump"
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "spawn"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=16]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+
+[sub_resource type="AnimationNodeStateMachine" id=20]
+states/die/node = SubResource( 23 )
+states/die/position = Vector2( 267, 276 )
+states/fall/node = SubResource( 8 )
+states/fall/position = Vector2( 730, 254 )
+states/idle/node = SubResource( 9 )
+states/idle/position = Vector2( 386, 83 )
+states/jump/node = SubResource( 10 )
+states/jump/position = Vector2( 479, 299 )
+states/spawn/node = SubResource( 11 )
+states/spawn/position = Vector2( 137, 172 )
+states/walk/node = SubResource( 12 )
+states/walk/position = Vector2( 669, 50 )
+transitions = [ "idle", "walk", SubResource( 13 ), "idle", "jump", SubResource( 14 ), "idle", "fall", SubResource( 15 ), "fall", "idle", SubResource( 16 ), "walk", "idle", SubResource( 17 ), "spawn", "idle", SubResource( 18 ), "jump", "fall", SubResource( 19 ), "idle", "die", SubResource( 24 ), "die", "spawn", SubResource( 25 ) ]
+graph_offset = Vector2( 0, -7.80988 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=21]
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 4
@@ -53,6 +120,8 @@ editor_draw_drag_margin = true
 position = Vector2( 1.26132, -39.1017 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, -48.3333 )
+hframes = 2
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.74913, -59.9272 )
@@ -80,6 +149,7 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/die = SubResource( 22 )
 anims/fall = SubResource( 3 )
 anims/idle = SubResource( 4 )
 anims/jump = SubResource( 5 )
@@ -87,10 +157,10 @@ anims/spawn = SubResource( 6 )
 anims/walk = SubResource( 7 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 8 )
+tree_root = SubResource( 20 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 9 )
+parameters/playback = SubResource( 21 )
 
 [node name="Light2D" type="Light2D" parent="."]
 position = Vector2( -1.18921, -126.056 )
