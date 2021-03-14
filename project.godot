@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="subOrbitalJam"
-run/main_scene="res://src/Levels/Level1.tscn"
+run/main_scene="res://src/Main.tscn"
 config/icon="res://icon.png"
 
 [display]

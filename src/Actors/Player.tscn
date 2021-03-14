@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/Actors/Player.gd" type="Script" id=1]
 [ext_resource path="res://img/player/IMG_0034.PNG" type="Texture" id=2]
+[ext_resource path="res://img/misc/bulbe.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 13.2847, 59.6961 )
@@ -91,4 +92,11 @@ tree_root = SubResource( 8 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 9 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( -1.18921, -126.056 )
+texture = ExtResource( 3 )
+texture_scale = 2.94
+energy = 1.37
+mode = 2
 [connection signal="body_entered" from="EnemyDetector" to="." method="_on_EnemyDetector_body_entered"]

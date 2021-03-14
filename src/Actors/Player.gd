@@ -1,5 +1,7 @@
 extends Actor
 
+signal fanage_changed(cur_fanage, base_fanage)
+
 
 export var stomp_impulse: = 600.0
 export var fanage_base: float = 10000
@@ -40,6 +42,8 @@ func _ready():
 	coyote_time.one_shot = true
 	coyote_time.wait_time = coyote_time_time
 	add_child(coyote_time)
+	
+	connect("fanage_changed", get_node("/root/Main"), "_onPlayerFanageChange")
 
 func _input(event):
 	if event.is_action_pressed("pollenize"):
@@ -75,8 +79,9 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor()  and was_on_floor and not is_jumping:
 		coyote_time.start()
 		_velocity.y = 0
-		
-	set_fanage(_fanage_restant - delta * _velocity.length())
+	
+	if not _velocity.y > 0.0:
+		set_fanage(_fanage_restant - delta * _velocity.length())
 
 
 func get_direction() -> Vector2:
@@ -124,6 +129,8 @@ func set_fanage(new_fanage: float):
 		die()
 	else:
 		$Label.text = str(int(_fanage_restant))
+		
+	emit_signal("fanage_changed", _fanage_restant, fanage_base)
 	pass
 	
 export var pollen_cost: int = 100
