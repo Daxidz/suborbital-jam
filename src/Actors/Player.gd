@@ -1,6 +1,8 @@
 extends Actor
 
 signal fanage_changed(cur_fanage, base_fanage)
+signal death
+signal respanwned
 
 var state_machine
 
@@ -22,13 +24,14 @@ const PollenCircle = preload("res://src/Actors/PollenCircle.tscn")
 
 func respawn():
 	_dead = false
-	_fanage_restant = fanage_base
 	modulate = Color(1,1,1,1)
 	$Camera2D.current = true
 	
+	_velocity = Vector2.ZERO
 	set_fanage(fanage_base)
 	set_physics_process(true)
 	set_process(true)
+	emit_signal("respanwned")
 
 func pollenize():
 	if _pollenizing:
@@ -50,6 +53,8 @@ func _ready():
 	add_child(coyote_time)
 	state_machine = $AnimationTree.get("parameters/playback")
 	connect("fanage_changed", get_node("/root/Main"), "_onPlayerFanageChange")
+	connect("death", get_node("/root/Main"), "onPlayerDeath")
+	connect("respanwned", get_node("/root/Main"), "onPlayerRespawn")
 	state_machine.start("idle")
 
 func _input(event):
@@ -88,7 +93,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _process(delta):
-	if (_velocity.length() == 0.0):
+	if (_velocity.x == 0.0):
 		state_machine.travel("idle")
 	elif not is_jumping:
 		state_machine.travel("walk")
@@ -109,17 +114,7 @@ func get_direction() -> Vector2:
 		-Input.get_action_strength("jump") if (is_on_floor() or not coyote_time.is_stopped()) and Input.is_action_just_pressed("jump") else 0.0
 	)
 	
-const MAX_VELOCITY = Vector2(1400, 40)
-const ACCELERATION = Vector2(120, 40)
-func applyHorizontalAcceleration(direction: Vector2, velocity: Vector2) -> Vector2:
-	var _vel = velocity
-	if direction.x > 0.0:
-		if _vel.x < MAX_VELOCITY.x:
-			_vel.x = min(_vel.x + ACCELERATION.x, MAX_VELOCITY.x)
-	elif direction.x < 0.0:
-		if _vel.x > -MAX_VELOCITY.x:
-			_vel.x = max(_vel.x - ACCELERATION.x, -MAX_VELOCITY.x)
-	return _vel
+
 
 func calculate_move_velocity(
 		linear_velocity: Vector2,
@@ -130,20 +125,14 @@ func calculate_move_velocity(
 	var velocity: = linear_velocity
 	
 	velocity.x = speed.x * direction.x
-#	if is_jumping:
-#		velocity.x /= 1.5
 			
 	if direction.y != 0.0:
 		velocity.y = speed.y * direction.y
 	if is_jump_interrupted:
 		velocity.y = 0.0
 		
-#	if direction.length() > 0:
-#		velocity = velocity.linear_interpolate(direction, 0.5)
-#	else:
-#		# If there's no input, slow down to (0, 0)
-#		velocity = velocity.linear_interpolate(Vector2.ZERO, 0.07)
-	if velocity.length() > 10000:
+	if velocity.length() > 10000 and not _dead:
+		print("DEAD")
 		die()
 	return velocity
 
@@ -152,12 +141,11 @@ func die() -> void:
 	if _dead:
 		return
 	_dead = true
-	modulate = Color.red
-#	print("DEAD")
+#	modulate = Color.red
 	state_machine.travel("die")
 	set_physics_process(false)
 	set_process(false)
-#	$Camera2D.current = false
+	emit_signal("death")
 	
 func set_fanage(new_fanage: float):
 	
@@ -165,11 +153,10 @@ func set_fanage(new_fanage: float):
 	if _fanage_restant < 0.0:
 		_fanage_restant = 0.0
 
-	if _dead or _fanage_restant <= 0:
-		$Label.text = "YOU DIED"
+	if _fanage_restant <= 0:
 		die()
-	else:
-		$Label.text = str(int(_fanage_restant))
+		print("DEAD")
+
 		
 	emit_signal("fanage_changed", _fanage_restant, fanage_base)
 	pass

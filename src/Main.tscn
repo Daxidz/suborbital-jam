@@ -139,7 +139,6 @@ __meta__ = {
 }
 
 [node name="Levels" type="Node2D" parent="."]
-pause_mode = 1
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 pause_mode = 2

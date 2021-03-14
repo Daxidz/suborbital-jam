@@ -51,10 +51,15 @@ func hide_menu():
 func onGameStarted():
 	$UI/HB/TextureProgress.visible = true
 	in_level = true
+	
+func onPlayerDeath():
+	$UI/CanvasLayer/IGMenu.activate()
+	
+func onPlayerRespawn():
+	$UI/CanvasLayer/IGMenu.deactivate()
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
-		print($UI/CanvasLayer/IGMenu.activated)
 		if in_level:
 			if $UI/CanvasLayer/IGMenu.activated:
 				$UI/CanvasLayer/IGMenu.deactivate()
