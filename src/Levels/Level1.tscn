@@ -14,7 +14,9 @@ script = ExtResource( 3 )
 position = Vector2( 600, -100 )
 speed = Vector2( 1000, 1500 )
 gravity = 4000.0
-coyote_time_time = 0.08
+fanage_base = 9000.0
+coyote_time_time = 0.1
+pollen_cost = 300
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
@@ -50,7 +52,7 @@ tile_data = PoolIntArray( -720831, 0, 0, -589761, 0, 0, -458691, 0, 0 )
 tile_data = PoolIntArray( -1507270, 0, 0, -1507269, 0, 0, -1245133, 0, 0, -1245132, 0, 0, -982982, 0, 0, -982981, 0, 0, -720845, 0, 0, -720844, 0, 0 )
 
 [node name="TileMapInvis9" parent="InvisWalls" instance=ExtResource( 5 )]
-tile_data = PoolIntArray( -982966, 0, 0, -982965, 0, 0, -655294, 0, 0, -655293, 0, 0, -655292, 0, 0, -327606, 0, 0, -327605, 0, 0, 66, 0, 0, 67, 0, 0, 68, 0, 0, 327752, 0, 0, 327753, 0, 0, 327754, 0, 0 )
+tile_data = PoolIntArray( -982966, 0, 0, -982965, 0, 0, -655294, 0, 0, -655293, 0, 0, -655292, 0, 0, -327606, 0, 0, -327605, 0, 0, 66, 0, 0, 67, 0, 0, 68, 0, 0, 327751, 0, 0, 327752, 0, 0, 327753, 0, 0, 327754, 0, 0 )
 
 [node name="TileMapInvis10" parent="InvisWalls" instance=ExtResource( 5 )]
 
