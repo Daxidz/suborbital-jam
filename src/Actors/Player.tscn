@@ -10,24 +10,19 @@ extents = Vector2( 13.2847, 59.6961 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 32, 34 )
 
-[sub_resource type="Animation" id=22]
+[sub_resource type="Animation" id=3]
 resource_name = "die"
 
-[sub_resource type="Animation" id=3]
-resource_name = "fall"
-
 [sub_resource type="Animation" id=4]
-resource_name = "idle"
 
 [sub_resource type="Animation" id=5]
-resource_name = "jump"
 
 [sub_resource type="Animation" id=6]
-resource_name = "spawn"
 
 [sub_resource type="Animation" id=7]
-resource_name = "walk"
-length = 0.5
+
+[sub_resource type="Animation" id=8]
+length = 1.2
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -36,33 +31,29 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1 ]
+"values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=23]
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "die"
 
-[sub_resource type="AnimationNodeAnimation" id=8]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "fall"
 
-[sub_resource type="AnimationNodeAnimation" id=9]
+[sub_resource type="AnimationNodeAnimation" id=11]
 animation = "idle"
 
-[sub_resource type="AnimationNodeAnimation" id=10]
+[sub_resource type="AnimationNodeAnimation" id=12]
 animation = "jump"
 
-[sub_resource type="AnimationNodeAnimation" id=11]
+[sub_resource type="AnimationNodeAnimation" id=13]
 animation = "spawn"
 
-[sub_resource type="AnimationNodeAnimation" id=12]
+[sub_resource type="AnimationNodeAnimation" id=14]
 animation = "walk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=13]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=14]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=15]
 
@@ -74,27 +65,31 @@ animation = "walk"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=19]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+[sub_resource type="AnimationNodeStateMachineTransition" id=20]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+[sub_resource type="AnimationNodeStateMachineTransition" id=21]
 
-[sub_resource type="AnimationNodeStateMachine" id=20]
-states/die/node = SubResource( 23 )
+[sub_resource type="AnimationNodeStateMachineTransition" id=22]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+
+[sub_resource type="AnimationNodeStateMachine" id=24]
+states/die/node = SubResource( 9 )
 states/die/position = Vector2( 267, 276 )
-states/fall/node = SubResource( 8 )
+states/fall/node = SubResource( 10 )
 states/fall/position = Vector2( 730, 254 )
-states/idle/node = SubResource( 9 )
+states/idle/node = SubResource( 11 )
 states/idle/position = Vector2( 386, 83 )
-states/jump/node = SubResource( 10 )
+states/jump/node = SubResource( 12 )
 states/jump/position = Vector2( 479, 299 )
-states/spawn/node = SubResource( 11 )
+states/spawn/node = SubResource( 13 )
 states/spawn/position = Vector2( 137, 172 )
-states/walk/node = SubResource( 12 )
+states/walk/node = SubResource( 14 )
 states/walk/position = Vector2( 669, 50 )
-transitions = [ "idle", "walk", SubResource( 13 ), "idle", "jump", SubResource( 14 ), "idle", "fall", SubResource( 15 ), "fall", "idle", SubResource( 16 ), "walk", "idle", SubResource( 17 ), "spawn", "idle", SubResource( 18 ), "jump", "fall", SubResource( 19 ), "idle", "die", SubResource( 24 ), "die", "spawn", SubResource( 25 ) ]
+transitions = [ "idle", "walk", SubResource( 15 ), "idle", "jump", SubResource( 16 ), "idle", "fall", SubResource( 17 ), "fall", "idle", SubResource( 18 ), "walk", "idle", SubResource( 19 ), "spawn", "idle", SubResource( 20 ), "jump", "fall", SubResource( 21 ), "idle", "die", SubResource( 22 ), "die", "spawn", SubResource( 23 ) ]
 graph_offset = Vector2( 0, -7.80988 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=21]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=25]
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 4
@@ -120,10 +115,11 @@ editor_draw_drag_margin = true
 position = Vector2( 1.26132, -39.1017 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, -48.3333 )
-hframes = 2
-frame = 1
+hframes = 4
+frame = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0.74913, -59.9272 )
 shape = SubResource( 1 )
 __meta__ = {
@@ -135,6 +131,7 @@ collision_layer = 0
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
+visible = false
 modulate = Color( 0.337255, 0.223529, 1, 1 )
 position = Vector2( 4.81603, -43.4749 )
 shape = SubResource( 2 )
@@ -149,18 +146,18 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/die = SubResource( 22 )
-anims/fall = SubResource( 3 )
-anims/idle = SubResource( 4 )
-anims/jump = SubResource( 5 )
-anims/spawn = SubResource( 6 )
-anims/walk = SubResource( 7 )
+anims/die = SubResource( 3 )
+anims/fall = SubResource( 4 )
+anims/idle = SubResource( 5 )
+anims/jump = SubResource( 6 )
+anims/spawn = SubResource( 7 )
+anims/walk = SubResource( 8 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 20 )
+tree_root = SubResource( 24 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 21 )
+parameters/playback = SubResource( 25 )
 
 [node name="Light2D" type="Light2D" parent="."]
 position = Vector2( -1.18921, -126.056 )
@@ -168,4 +165,7 @@ texture = ExtResource( 3 )
 texture_scale = 2.94
 energy = 1.37
 mode = 2
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 0, -123 )
 [connection signal="body_entered" from="EnemyDetector" to="." method="_on_EnemyDetector_body_entered"]

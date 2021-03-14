@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/Actors/PollenCircle.gd" type="Script" id=1]
 
@@ -13,6 +13,12 @@ _data = [ Vector2( 0, -16.3636 ), 0.0, 0.0, 0, 0, Vector2( 1, 289.636 ), 0.0, 0.
 [sub_resource type="CurveTexture" id=3]
 curve = SubResource( 2 )
 
+[sub_resource type="Gradient" id=8]
+colors = PoolColorArray( 1, 0.898682, 0.351563, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 8 )
+
 [sub_resource type="Curve" id=4]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.272727 ), 0.0, 0.0, 0, 0 ]
 
@@ -26,18 +32,19 @@ flag_disable_z = true
 direction = Vector3( 0, 0, 0 )
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 91.95
+initial_velocity = 149.42
 initial_velocity_random = 0.41
 angular_velocity_curve = SubResource( 3 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-scale = 2.0
+scale = 2.5
+scale_random = 0.39
 scale_curve = SubResource( 5 )
-color = Color( 0.941176, 1, 0.129412, 1 )
+color_ramp = SubResource( 9 )
 
 [sub_resource type="Animation" id=7]
 resource_name = "pollenize"
-length = 2.0
+length = 4.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("WallDetectArea/CollisionShape2D:scale")
 tracks/0/interp = 1
@@ -57,7 +64,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.9 ),
+"times": PoolRealArray( 0, 2.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -69,7 +76,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 1.9 ),
+"times": PoolRealArray( 0, 2.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
@@ -87,13 +94,15 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallDetectArea"]
 position = Vector2( 0, -46.0346 )
+scale = Vector2( 5, 5 )
 shape = SubResource( 1 )
+disabled = true
 
 [node name="Particles2D" type="Particles2D" parent="."]
 position = Vector2( 2.3811, -48.4157 )
 emitting = false
-amount = 70
-lifetime = 2.5
+amount = 100
+lifetime = 3.0
 speed_scale = 1.4
 explosiveness = 0.19
 randomness = 0.28

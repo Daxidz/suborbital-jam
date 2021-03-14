@@ -35,7 +35,7 @@ func change_scene(path):
 	room_holder.add_child(current_scene)
 	
 	# Optionally, to make it compatible with the SceneTree.change_scene() API.
-	get_tree().set_current_scene(current_scene)
+#	get_tree().set_current_scene(current_scene)
 	
 	
 func _deferred_goto_scene(path):
