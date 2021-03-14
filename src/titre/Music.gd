@@ -2,7 +2,8 @@ extends AudioStreamPlayer
 
 const MUSIC_PATH = "res://sounds/musics/"
 
-const VOLUME_BASE = -13.0
+#const VOLUME_BASE = -13.0
+const VOLUME_BASE = 0
 
 var cur_theme = -1
 
@@ -14,7 +15,6 @@ func _ready():
 func play_theme(theme: int):
 	
 	if cur_theme != theme:
-#		stream = load(MUSIC_PATH + "main_" + str(theme) + ".ogg")
 		stream = load(MUSIC_PATH + "main_" + str(theme) + ".wav")
 		cur_theme = theme
 		$Tween.interpolate_property(self, "volume_db", VOLUME_BASE, -80.0, 1, Tween.TRANS_LINEAR)

@@ -19,6 +19,8 @@ func _ready():
 	$UI/CanvasLayer/IGMenu.deactivate()
 	$UI/HB/TextureProgress.visible = false
 	show_menu()
+	$UI/CanvasLayer/EndScreen.visible = false
+	
 	
 func update_healthbar(cur_fanage: float, base_fanage: float):
 	healthbar.min_value = 0
@@ -57,6 +59,10 @@ func onPlayerDeath():
 	
 func onPlayerRespawn():
 	$UI/CanvasLayer/IGMenu.deactivate()
+
+func onGameEnd():
+	$UI/CanvasLayer/EndScreen.visible = true
+	$UI/HB/TextureProgress.visible = false
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):

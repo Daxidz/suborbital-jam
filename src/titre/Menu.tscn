@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/titre/Menu.gd" type="Script" id=1]
-[ext_resource path="res://test_tiles/icon2.png" type="Texture" id=2]
+[ext_resource path="res://img/misc/splashScreen.png" type="Texture" id=2]
 [ext_resource path="res://img/misc/buttons/but_clean_play.png" type="Texture" id=3]
 [ext_resource path="res://img/misc/buttons/but_brkn_credits.png" type="Texture" id=4]
 [ext_resource path="res://img/misc/buttons/but_brkn_play.png" type="Texture" id=5]
@@ -24,8 +24,7 @@ __meta__ = {
 first_room = "res://src/Levels/Level1.tscn"
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 968.664, 549.973 )
-scale = Vector2( 31.2708, 18.1867 )
+position = Vector2( 961.992, 540.326 )
 texture = ExtResource( 2 )
 
 [node name="Buttons" type="Control" parent="."]
@@ -36,10 +35,10 @@ __meta__ = {
 }
 
 [node name="START" type="TextureButton" parent="Buttons"]
-margin_left = 26.789
-margin_top = 601.223
-margin_right = 826.789
-margin_bottom = 1101.22
+margin_left = 609.706
+margin_top = 819.249
+margin_right = 1009.71
+margin_bottom = 1069.25
 texture_normal = ExtResource( 3 )
 texture_pressed = ExtResource( 5 )
 __meta__ = {
@@ -47,10 +46,10 @@ __meta__ = {
 }
 
 [node name="QUIT" type="TextureButton" parent="Buttons"]
-margin_left = 1142.31
-margin_top = 585.72
-margin_right = 1942.31
-margin_bottom = 1085.72
+margin_left = 1455.6
+margin_top = 825.439
+margin_right = 1855.6
+margin_bottom = 1075.44
 texture_normal = ExtResource( 8 )
 texture_pressed = ExtResource( 9 )
 __meta__ = {
@@ -58,10 +57,10 @@ __meta__ = {
 }
 
 [node name="CREDIT" type="TextureButton" parent="Buttons"]
-margin_left = 616.63
-margin_top = 109.229
-margin_right = 1416.63
-margin_bottom = 609.229
+margin_left = 1025.95
+margin_top = 827.316
+margin_right = 1425.95
+margin_bottom = 1077.32
 texture_normal = ExtResource( 6 )
 texture_pressed = ExtResource( 4 )
 __meta__ = {

@@ -13,9 +13,27 @@ _global_script_classes=[ {
 "class": "Actor",
 "language": "GDScript",
 "path": "res://src/Actors/Actor.gd"
+}, {
+"base": "Node",
+"class": "AudioManage",
+"language": "GDScript",
+"path": "res://addons/WebAudioExternal/AudioManager.gd"
+}, {
+"base": "Node2D",
+"class": "AudioSpacial2D",
+"language": "GDScript",
+"path": "res://addons/WebAudioExternal/AudioSpacial2D.gd"
+}, {
+"base": "Node",
+"class": "JavascriptManage",
+"language": "GDScript",
+"path": "res://addons/WebAudioExternal/JavascriptManager.gd"
 } ]
 _global_script_class_icons={
-"Actor": ""
+"Actor": "",
+"AudioManage": "",
+"AudioSpacial2D": "",
+"JavascriptManage": ""
 }
 
 [application]
@@ -32,6 +50,7 @@ SceneChanger="*res://src/titre/SceneChanger.gd"
 
 window/size/width=1920
 window/size/height=1080
+window/size/fullscreen=true
 window/stretch/mode="viewport"
 
 [input]
