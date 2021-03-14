@@ -1,14 +1,14 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://src/Actors/Player.gd" type="Script" id=1]
 [ext_resource path="res://img/player/player.png" type="Texture" id=2]
 [ext_resource path="res://img/misc/bulbe.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 59.696 )
+extents = Vector2( 13.2847, 59.6961 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 16, 34 )
+extents = Vector2( 32, 34 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "die"
@@ -28,6 +28,22 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=4]
 
+[sub_resource type="Animation" id=26]
+resource_name = "ground"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 13 ]
+}
+
 [sub_resource type="Animation" id=5]
 length = 0.6
 loop = true
@@ -45,6 +61,36 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=6]
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 14, 15 ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "prepare_jump"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 13 ]
+}
 
 [sub_resource type="Animation" id=7]
 
@@ -70,11 +116,17 @@ animation = "die"
 [sub_resource type="AnimationNodeAnimation" id=10]
 animation = "fall"
 
+[sub_resource type="AnimationNodeAnimation" id=28]
+animation = "ground"
+
 [sub_resource type="AnimationNodeAnimation" id=11]
 animation = "idle"
 
 [sub_resource type="AnimationNodeAnimation" id=12]
 animation = "jump"
+
+[sub_resource type="AnimationNodeAnimation" id=29]
+animation = "prepare_jump"
 
 [sub_resource type="AnimationNodeAnimation" id=13]
 animation = "spawn"
@@ -84,11 +136,7 @@ animation = "walk"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=15]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=16]
-
 [sub_resource type="AnimationNodeStateMachineTransition" id=17]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=18]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=19]
 
@@ -100,20 +148,34 @@ animation = "walk"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=23]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=31]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=32]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=33]
+switch_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id=24]
 states/die/node = SubResource( 9 )
 states/die/position = Vector2( 267, 276 )
 states/fall/node = SubResource( 10 )
-states/fall/position = Vector2( 730, 254 )
+states/fall/position = Vector2( 837, 197 )
+states/ground/node = SubResource( 28 )
+states/ground/position = Vector2( 544.599, 202 )
 states/idle/node = SubResource( 11 )
 states/idle/position = Vector2( 386, 83 )
 states/jump/node = SubResource( 12 )
 states/jump/position = Vector2( 479, 299 )
+states/prepare_jump/node = SubResource( 29 )
+states/prepare_jump/position = Vector2( 410.599, 220.19 )
 states/spawn/node = SubResource( 13 )
 states/spawn/position = Vector2( 137, 172 )
 states/walk/node = SubResource( 14 )
 states/walk/position = Vector2( 669, 50 )
-transitions = [ "idle", "walk", SubResource( 15 ), "idle", "jump", SubResource( 16 ), "idle", "fall", SubResource( 17 ), "fall", "idle", SubResource( 18 ), "walk", "idle", SubResource( 19 ), "spawn", "idle", SubResource( 20 ), "jump", "fall", SubResource( 21 ), "idle", "die", SubResource( 22 ), "die", "spawn", SubResource( 23 ) ]
+transitions = [ "idle", "walk", SubResource( 15 ), "idle", "fall", SubResource( 17 ), "walk", "idle", SubResource( 19 ), "spawn", "idle", SubResource( 20 ), "jump", "fall", SubResource( 21 ), "idle", "die", SubResource( 22 ), "die", "spawn", SubResource( 23 ), "fall", "ground", SubResource( 30 ), "ground", "idle", SubResource( 31 ), "idle", "prepare_jump", SubResource( 32 ), "prepare_jump", "jump", SubResource( 33 ) ]
 graph_offset = Vector2( -44.4015, -7.80988 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=25]
@@ -143,12 +205,12 @@ editor_draw_drag_margin = true
 position = Vector2( 1.26132, -39.1017 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, -48.3333 )
-hframes = 13
-frame = 6
+hframes = 16
+frame = 13
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2( 0, -59.927 )
+position = Vector2( 0.74913, -59.9272 )
 shape = SubResource( 1 )
 __meta__ = {
 "_edit_group_": true
@@ -161,7 +223,7 @@ collision_mask = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
 visible = false
 modulate = Color( 0.337255, 0.223529, 1, 1 )
-position = Vector2( 0, -43.475 )
+position = Vector2( 4.81603, -43.4749 )
 shape = SubResource( 2 )
 
 [node name="Label" type="Label" parent="."]
@@ -176,8 +238,10 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/die = SubResource( 3 )
 anims/fall = SubResource( 4 )
+anims/ground = SubResource( 26 )
 anims/idle = SubResource( 5 )
 anims/jump = SubResource( 6 )
+anims/prepare_jump = SubResource( 27 )
 anims/spawn = SubResource( 7 )
 anims/walk = SubResource( 8 )
 

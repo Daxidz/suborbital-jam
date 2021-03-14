@@ -1,7 +1,20 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/titre/Menu.gd" type="Script" id=1]
 [ext_resource path="res://test_tiles/icon2.png" type="Texture" id=2]
+[ext_resource path="res://img/misc/buttons/but_clean_play.png" type="Texture" id=3]
+[ext_resource path="res://img/misc/buttons/but_brkn_credits.png" type="Texture" id=4]
+[ext_resource path="res://img/misc/buttons/but_brkn_play.png" type="Texture" id=5]
+[ext_resource path="res://img/misc/buttons/but_clean_credits.png" type="Texture" id=6]
+[ext_resource path="res://fonts/m5x7.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://img/misc/buttons/but_clean_exit.png" type="Texture" id=8]
+[ext_resource path="res://img/misc/buttons/but_brkn_exit.png" type="Texture" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+resource_local_to_scene = true
+size = 128
+outline_color = Color( 0.109804, 0.109804, 0.109804, 1 )
+font_data = ExtResource( 7 )
 
 [node name="Menu" type="Control"]
 script = ExtResource( 1 )
@@ -23,37 +36,80 @@ __meta__ = {
 }
 
 [node name="START" type="TextureButton" parent="Buttons"]
-margin_left = 362.713
-margin_top = 533.209
-margin_right = 426.713
-margin_bottom = 597.209
-texture_normal = ExtResource( 2 )
-texture_pressed = ExtResource( 2 )
-texture_hover = ExtResource( 2 )
+margin_left = 26.789
+margin_top = 601.223
+margin_right = 826.789
+margin_bottom = 1101.22
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QUIT" type="TextureButton" parent="Buttons"]
+margin_left = 1142.31
+margin_top = 585.72
+margin_right = 1942.31
+margin_bottom = 1085.72
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="CREDIT" type="TextureButton" parent="Buttons"]
-margin_left = 920.831
-margin_top = 554.347
-margin_right = 984.831
-margin_bottom = 618.347
-texture_normal = ExtResource( 2 )
-texture_pressed = ExtResource( 2 )
-texture_hover = ExtResource( 2 )
+margin_left = 616.63
+margin_top = 109.229
+margin_right = 1416.63
+margin_bottom = 609.229
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="QUIT" type="TextureButton" parent="Buttons"]
-margin_left = 1460.15
-margin_top = 549.698
-margin_right = 1524.15
-margin_bottom = 613.698
-texture_normal = ExtResource( 2 )
-texture_pressed = ExtResource( 2 )
-texture_hover = ExtResource( 2 )
+[node name="CREDITS" type="ColorRect" parent="."]
+visible = false
+margin_left = -5.0
+margin_top = -9.0
+margin_right = 1973.0
+margin_bottom = 1117.0
+color = Color( 0.156863, 0, 0.145098, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="CREDITS"]
+margin_left = 53.0304
+margin_top = 107.078
+margin_right = 1409.03
+margin_bottom = 1096.08
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Art: Sar, jess, dax
+Code: David, seb
+Musique: Gallouche
+Game design: Seb
+
+
+Crée avec Godot et beaucoup d'amour!"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ESC" type="Label" parent="CREDITS"]
+margin_left = 1737.13
+margin_top = 949.126
+margin_right = 3093.13
+margin_bottom = 1938.13
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "esc"
+uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="Buttons/START" to="." method="_on_START_pressed"]
-[connection signal="pressed" from="Buttons/CREDIT" to="." method="_on_CREDIT_pressed"]
 [connection signal="pressed" from="Buttons/QUIT" to="." method="_on_QUIT_pressed"]
+[connection signal="pressed" from="Buttons/CREDIT" to="." method="_on_CREDIT_pressed"]

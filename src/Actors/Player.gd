@@ -93,14 +93,17 @@ func _physics_process(delta: float) -> void:
 
 
 func _process(delta):
-	if (_velocity.x == 0.0):
-		state_machine.travel("idle")
-	elif not is_jumping:
-		state_machine.travel("walk")
+	if is_on_floor():
+		if (_velocity.x == 0.0):
+			state_machine.travel("idle")
+		else:
+			state_machine.travel("walk")
 	else:
-		if _velocity.y < 0.0:
+		if _velocity.y > 0.0:
+			print("FALL")
 			state_machine.travel("fall")
 		else:
+			print("JMP")
 			state_machine.travel("jump")
 	if _velocity.x > 0:
 			$Sprite.flip_h = false
